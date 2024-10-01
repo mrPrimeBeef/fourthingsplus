@@ -9,18 +9,26 @@
 
 <body>
 
-<h1>Four things plus</h1>
 
-<p>login</p>
 
-<form method="POST">
-    <input type="text" name="username" placeholder="username"/><br/><br>
-    <input type="password" name="password" placeholder="password"/><br/><br>
-    <button type="submit" formaction="/login">Login</button>
-</form>
+<div class="page-container">
 
-<p th:text="${#ctx.message}"></p>
+    <div class="page-content">
+        <div class="centered-form">
+            <h1>Four things plus</h1>
+            <p>login</p>
+            <form method="POST">
+                <input type="text" name="username" placeholder="username"/>
+                <input type="password" name="password" placeholder="password"/>
+                <button type="submit" formaction="/login">Login</button>
+            </form>
+
+            <p th:text="${#ctx.message}"></p>
+        </div>
+    </div>
+</div>
 
 </body>
+
 </html>
 
