@@ -32,6 +32,9 @@ public class Main {
 
         app.get("/", ctx -> ctx.render("index.html"));
         app.post("/login", ctx -> UserController.login(ctx, connectionPool));
+        app.get("/createuser", ctx -> ctx.render("createuser.html"));
+        app.post("/createuser", ctx ->UserController.createuser(ctx,connectionPool));
+
     }
 
 }

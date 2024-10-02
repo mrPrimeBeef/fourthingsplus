@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="page-container">
+    <div class="page-content">
+        <h1>Tasks</h1>
+        <div class="centered-form">
+            <form method="POST">
+                <input type="text" name="addtask" placeholder="tilføj ny opgave">
+                <button type="submit" formaction="/addtask">Add</button>
+            </form>
+
+            <h2>ToDo:</h2>
+
+            <table class="task-table">
+                <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task : ${taskList}">
+                    <td th:text="${task.name}"></td>
+                    <td>
+                        <button type="submit" formaction="/done" th:value="${task.id}">Done</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2>Done:</h2>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

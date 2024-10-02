@@ -29,4 +29,22 @@ public class UserMapper {
             throw new RuntimeException(e);
         }
     }
+
+    public static void createuser(String name, String password, ConnectionPool connectionPool) throws DatabaseExeception {
+    String sql =    "INSERT INTO public.user (name, password) VALUES (?, ?)";
+    try(Connection connection = connectionPool.getConnection();
+    PreparedStatement ps = connection.prepareStatement(sql);) {
+        ps.setString(1,name);
+        ps.setString(2, password);
+        int rowsAffected = ps.executeUpdate();
+        if(rowsAffected !=1){
+            throw new DatabaseExeception("Fejl ved oprettelse af bruger");
+        }
+    } catch ( SQLException e){
+        if (e.getMessage().startsWith("ERROR: duplicate key value")) {
+            throw new DatabaseExeception("Prøv med et andet brugernavn");
+        }
+        throw new DatabaseExeception("fejl, prøv igen");
+    }
+    }
 }
