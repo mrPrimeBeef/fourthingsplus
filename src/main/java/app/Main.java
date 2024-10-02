@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.TaskController;
 import app.controllers.UserController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -34,6 +35,7 @@ public class Main {
         app.post("/login", ctx -> UserController.login(ctx, connectionPool));
         app.get("/createuser", ctx -> ctx.render("createuser.html"));
         app.post("/createuser", ctx ->UserController.createuser(ctx,connectionPool));
+        app.post("/addtask", ctx -> TaskController.addtask(ctx, connectionPool));
         app.get("/logout", ctx -> UserController.logout(ctx));
     }
 
