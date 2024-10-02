@@ -34,7 +34,7 @@ public class Main {
         app.post("/login", ctx -> UserController.login(ctx, connectionPool));
         app.get("/createuser", ctx -> ctx.render("createuser.html"));
         app.post("/createuser", ctx ->UserController.createuser(ctx,connectionPool));
-
+        app.get("/logout", ctx -> UserController.logout(ctx));
     }
 
 }

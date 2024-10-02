@@ -56,4 +56,10 @@ public class UserController {
             ctx.render("createuser.html");
         }
     }
+
+    public static void logout(Context ctx) {
+        // invalidate session
+        ctx.req().getSession().invalidate();
+        ctx.redirect("/");
+    }
 }
