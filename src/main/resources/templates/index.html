@@ -25,7 +25,10 @@
 
             <p th:text="${#ctx.message}"></p>
         </div>
-        <a href="/createuser">Create account</a>
+
+        <a th:if="${#ctx.session.currentUser} == null" th:href="@{/createuser}">Create account</a>
+        <a th:if="${#ctx.session.currentUser} != null" th:href="@{/logout}">Logout</a>
+
     </div>
 </div>
 
