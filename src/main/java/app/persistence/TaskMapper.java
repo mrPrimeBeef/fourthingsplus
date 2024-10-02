@@ -48,7 +48,7 @@ public class TaskMapper {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
                 int newID = rs.getInt(1);
-                newTask = new Task(newID, taskName, false,user.getId());
+                newTask = new Task(newID, taskName, false, user.getId());
             } else {
                 throw new DatabaseExeception("Fejl under indsætning af task: " + taskName);
             }
@@ -56,6 +56,26 @@ public class TaskMapper {
         } catch (SQLException e) {
             throw new DatabaseExeception("Fejl i db task");
         }
-    return newTask;
+        return newTask;
+    }
+
+    public static void setDoneTo(boolean done, int taskId, ConnectionPool connectionPool) throws DatabaseExeception {
+        String sql = "UPDATE task SET done = ? WHERE id = ?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setBoolean(1, done);
+            ps.setInt(2, taskId);
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected != 1) {
+                throw new DatabaseExeception("Fejl i opdatering af task");
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseExeception("Fejl i opdatering af task");
+        }
     }
 }

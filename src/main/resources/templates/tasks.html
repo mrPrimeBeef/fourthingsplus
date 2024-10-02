@@ -16,12 +16,11 @@
 
         <div class="centered-form">
             <form method="POST">
-                <input type="text" name="addtask" placeholder="tilføj ny opgave">
+                <input type="text" name="taskname" placeholder="tilføj ny opgave">
                 <button type="submit" formaction="/addtask">Add</button>
-            </form>
+
 
             <h2>ToDo:</h2>
-
             <table class="task-table">
                 <thead>
                 <tr>
@@ -30,17 +29,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="task : ${taskList}">
+                <tr th:each="task : ${taskList}" th:if="${not task.done}">
                     <td th:text="${task.name}"></td>
                     <td>
-                        <button type="submit" formaction="/done" th:value="${task.id}">Done</button>
+                        <button type="submit" name="done" formaction="/done" th:value="${task.id}">Done</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
             <h2>Done:</h2>
+            <table class="task-table">
+                <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task : ${taskList}" th:if="${task.done}">
+                    <td th:text="${task.name}"></td>
+                    <td>
+                        <button type="submit" name="done" formaction="/undo" th:value="${task.id}">Undo</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </form>
         </div>
+
         <a href="/">Til forsiden</a>
     </div>
 </div>

@@ -37,6 +37,8 @@ public class Main {
         app.post("/createuser", ctx ->UserController.createuser(ctx,connectionPool));
         app.post("/addtask", ctx -> TaskController.addtask(ctx, connectionPool));
         app.get("/logout", ctx -> UserController.logout(ctx));
+        app.post("/done", ctx -> TaskController.done(ctx, true, connectionPool));
+        app.post("/undo", ctx -> TaskController.done(ctx, false, connectionPool));
     }
 
 }

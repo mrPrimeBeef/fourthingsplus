@@ -27,4 +27,20 @@ public class TaskController {
             ctx.render("/tasks.html");
         }
     }
+
+    public static void done(Context ctx, boolean done, ConnectionPool connectionPool) {
+    int taskID = Integer.parseInt(ctx.formParam("done"));
+        try {
+            User user = ctx.sessionAttribute("currentUser");
+            TaskMapper.setDoneTo(done, taskID, connectionPool);
+            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getId(), connectionPool);
+
+            ctx.attribute("taskList", taskList);
+            ctx.render("tasks.html");
+
+        } catch (DatabaseExeception e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("/tasks.html");
+        }
+    }
 }
